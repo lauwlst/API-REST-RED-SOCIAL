@@ -3,7 +3,7 @@ import { Navigate, Outlet } from 'react-router-dom'
 import useAuth from '../../../hooks/useAuth';
 import { Header } from './Header';
 
-export const publicLayout = () => {
+export const PublicLayout = () => {
   const {auth} = useAuth();
   return (
     <>
@@ -16,7 +16,7 @@ export const publicLayout = () => {
         <Outlet />
         :
         <Navigate to="/social" />
-        }
+        
       </section>
     
     </>

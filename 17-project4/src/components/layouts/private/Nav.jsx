@@ -4,7 +4,7 @@ import avatar from '../../../assets/img/user.png';
 import useAuth from '../../../hooks/useAuth';
 import { Global } from '../../../helpers/Global';
 
-export const nav = () => {
+export const Nav = () => {
 
     const { auth } = useAuth();
     return (
@@ -40,7 +40,7 @@ export const nav = () => {
                         
                         {auth.image != "default.png" && <img src={Global.url + "user/avatar/" + auth.image} className="container-avatar__img" alt="Foto de perfil" />}
                         {auth.image == "default.png" && <img src={avatar} className="list-end__img" alt="Foto de perfil" />}
-                    </div>
+    
                 </a>
             </li>
             <li className="list-end__item">

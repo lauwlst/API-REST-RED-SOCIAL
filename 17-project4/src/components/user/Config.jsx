@@ -24,7 +24,7 @@ export const Config = () => {
       body: JSON.stringify (newDataUser),
       headers: {
         "Content-Type": "application/json",
-        "Authorization: localStorage.getItem("token")
+        "Authorization": localStorage.getItem("token")
       }
     });
     const data = await request.json();
@@ -100,9 +100,6 @@ export const Config = () => {
 
           </div>
 
-
-      </div>
-
       <div className="form-group">
         <label htmlFor="nick">Nick</label>
         <input type="text" name="nick" defaultValue={auth.nick} />
@@ -142,9 +139,8 @@ export const Config = () => {
 
     </form >
 
-    <br />
+    </div>
 
-    
+
     </>
-  )
-}
+  )}

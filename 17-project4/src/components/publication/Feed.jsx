@@ -1,8 +1,8 @@
 import React from 'react'
-import avatar from '../../{avatar}';
+/*import avatar from '../../{avatar}'; */
 
 
-export const feed = () => {
+export const Feed = () => {
 
 
     return (

@@ -1,13 +1,13 @@
 import React from 'react'
 import { useState } from 'react';
 import { Global } from '../../helpers/Global';
-import {useform} from '../../hooks/useForm';
+import {useForm} from '../../hooks/useForm';
 import useAuth from '../../hooks/useAuth';
 
 
 export const Login = () => {
 
-  const { form, changed } = useform {()};
+  const { form, changed } = useForm ({});
   const [saved, setSaved] = useState("not_sended");
 
   const { setAuth } = useAuth;

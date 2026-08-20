@@ -5,7 +5,7 @@ function App() {
 
   return (
     <div className='layout'>
-      { */CARGANDO TODA LA CONFIGURACIÓN DE RUTAS */}
+      { /*CARGANDO TODA LA CONFIGURACIÓN DE RUTAS */}
       <Routing/>
 
       

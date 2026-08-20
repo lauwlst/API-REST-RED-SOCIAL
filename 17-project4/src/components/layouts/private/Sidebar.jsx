@@ -1,6 +1,7 @@
 import React from 'react'
 import avatar from '../../../assets/img/user.png';
 import useAuth from '../../../hooks/useAuth';
+import { Global } from '../../../helpers/Global';
 
 export const Sidebar = () => {
 

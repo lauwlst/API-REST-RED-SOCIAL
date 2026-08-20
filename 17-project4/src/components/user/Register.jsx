@@ -18,7 +18,7 @@ export const Register = () => {
     // Guardar usuario en el backend
     const request = await fetch (Global.url + "user/register", {
       method: "POST",
-      body: JSON.stringify(newUser)
+      body: JSON.stringify(newUser),
       headers: {
         "Contern-Type": "application/json"
 
@@ -61,8 +61,6 @@ export const Register = () => {
                    
                 </div>
               
-
-            </div>
 
               <div className="form-group">
                   <label htmlFor="nick">Nick</label>

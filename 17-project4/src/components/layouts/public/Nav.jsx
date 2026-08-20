@@ -1,7 +1,8 @@
 import React from 'react'
 import avatar from '../../../assets/img/user.png';
+import { NavLink } from 'react-router-dom';
 
-export const nav = () => {
+export const Nav = () => {
     return (
         <nav className="navbar__container-lists">
 
@@ -21,4 +22,6 @@ export const nav = () => {
                 </li>
 
             </ul>
+
 </nav>
+    )}
