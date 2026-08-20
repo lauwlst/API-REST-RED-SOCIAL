@@ -1,4 +1,6 @@
 //Importar dependencias
+const { config } = require("dotenv");
+config();
 const connection = require("./database/connection");
 const express = require("express");
 const cors = require("cors");
@@ -10,14 +12,14 @@ connection();
 
 // Crear servidor node
 const app = express();
-const puerto = 3900;
+const puerto = process.env.PORT;
 
 // Configurar cors
 app.use(cors());
 
 //Convertir los datos del body a objetos js
 app.use(express.json());
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 
 // Cargar conf rutas
 const UserRoutes = require("./routes/user");
@@ -30,16 +32,14 @@ app.use("/api/follow", FollowRoutes);
 
 //Ruta de prueba
 app.get("/ruta-prueba", (req, res) => {
-    return res.status(200).json(
-        {
-            "id": 1,
-            "nombre":"Laura",
-            "web":"carpiorubio.es"
-        }
-    );
-})
+  return res.status(200).json({
+    id: 1,
+    nombre: "Laura",
+    web: "carpiorubio.es",
+  });
+});
 
 // Poner servidor a escuchar peticiones http
 app.listen(puerto, () => {
-    console.log("Servidor de node corriendo en el puerto: ", puerto);
+  console.log("Servidor de node corriendo en el puerto: ", puerto);
 });
