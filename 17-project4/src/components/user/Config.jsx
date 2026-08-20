@@ -4,11 +4,14 @@ import { Global } from '../../helpers/Global';
 import { SerializeForm } from '../../helpers/SerializeForm';
 
 export const Config = () => {
-  const { auth } = useAuth();
+  const { auth, setAuth } = useAuth();
   const [saved, setSaved] = useState("not-saved");
 
-  const updateUser = (e) => {
+  const updateUser = async(e) => {
     e.preventDefault();
+
+    //Token de autenticación
+    const token = localStorage.getItem("token");
 
     // Recoger datos del formulario
     let newDataUser = SerializeForm(e.target);
@@ -16,10 +19,58 @@ export const Config = () => {
     delete newDataUser.file0;
 
     // Actualizar usuario en la base de datos
+    const request = await fetch (Global.url + "user/update", {
+      method: "PUT",
+      body: JSON.stringify (newDataUser),
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization: localStorage.getItem("token")
+      }
+    });
+    const data = await request.json();
 
+    if(data.status =="success" && data.user){
+      delete data.user.password;
+      setAuth(data.user);
+      setSaved("saved");
 
+      console.log(auth);
+    }else{
+      setSaved("error");
+    }
+
+    //Subida de imágenes
+    const fileInput = document.querySelector("#file");
+
+    if(data.status == "success" && fileInput.files[0]){
+      //Recoger imagen a subir
+      const formData = new FormData();
+      formData.append('file0', fileInput.files[0]);
+
+      //Petición para enviar el fichero
+      const uploadRequest = await fetch(Global.url + "user/upload", {
+        method: "POST",
+        body: formData,
+        headers: {
+          "Authorization": token
+        }
+      });
+      const uploadData = await uploadRequest.json();
+
+      if(uploadData.status == "success" && uploadData.user){
+
+        delete uploadData.user.password;
+
+        setAuth(uploadData.user);
+        setSaved("saved");
+      }else{
+        setSaved("error");
+      }
+
+    }
     
   }
+
   return (
     <>
       <header className="content__header content__header--public">
@@ -29,11 +80,11 @@ export const Config = () => {
       <div className="content__posts">
 
         {saved == "saved" ?
-          <strong className="alert alert-success"> "Usuario registrado correctamente !! </strong>
+          <strong className="alert alert-success"> "Usuario actualizado correctamente !! </strong>
           : ''}
 
         {saved == "error" ?
-          <strong className="alert alert-danger"> "Usuario no se ha registrado !! </strong>
+          <strong className="alert alert-danger"> "Usuario no se ha actualizado !! </strong>
           : ''}
 
         <form className="config-form" onSubmit={updateUser}>
@@ -87,9 +138,11 @@ export const Config = () => {
         <br />
       </div>
 
-      <input type="submit" value="Registrate" className='btn btn-success' />
+      <input type="submit" value="Actualizar" className='btn btn-success' />
 
     </form >
+
+    <br />
 
     
     </>
